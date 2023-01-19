@@ -2,7 +2,7 @@ from flask import Flask
 from flask import escape
 from flask import url_for
 from flask import render_template
-
+from flask import request
 app = Flask(__name__)
 
 # @app.route("/")
@@ -34,6 +34,18 @@ app = Flask(__name__)
 def id(name=None):
     return render_template('id.html', name = name)
     
+
+@app.get('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        return "DO LOGIN"
+    
+    return "SHOW LOGIN FORM"
+
+
+@app.get('/login')
+def login():
+    return "get  login"
 
 
 # with app.test_request_context():
