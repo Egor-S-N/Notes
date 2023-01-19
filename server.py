@@ -1,10 +1,27 @@
-from flask import Flask
-from flask import escape
-from flask import url_for
-from flask import render_template
-from flask import request
-app = Flask(__name__)
+from flask import Flask, escape, render_template, request, url_for
+from flask_restful import Api, Resource
 
+app = Flask(__name__)
+api = Api()
+
+
+values = {
+    1 : {"info": "Test", "number": 1},
+    2 : {"info": "Test2", "number": 2},
+}
+
+class Main(Resource):
+    def get(self, id_value:int) -> dict:
+        if id_value == 0:
+            return values
+        
+        return values[id_value]
+        
+
+
+
+api.add_resource(Main, '/main/<int:id_value>')
+api.init_app(app=app)
 # @app.route("/")
 # def index():
 #     return "<h1>Index</h1>"
@@ -35,17 +52,17 @@ def id(name=None):
     return render_template('id.html', name = name)
     
 
-@app.get('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        return "DO LOGIN"
+# @app.get('/login', methods=['GET', 'POST'])
+# def login():
+#     if request.method == 'POST':
+#         return "DO LOGIN"
     
-    return "SHOW LOGIN FORM"
+#     return "SHOW LOGIN FORM"
 
 
-@app.get('/login')
-def login():
-    return "get  login"
+# @app.get('/login')
+# def login():
+#     return "get  login"
 
 
 # with app.test_request_context():
