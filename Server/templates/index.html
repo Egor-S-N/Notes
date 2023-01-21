@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <table class="values">
+        <tr>
+            {%for i in col_names%}
+            <td>{{i}}</td>
+            {%endfor%}
+        </tr>
+
+
+        {%for key, value in dict_values.items()%}
+        <tr>
+            <td>{{dict_values[key]['info']}}</td>
+            <td>{{dict_values[key]['number']}}</td>
+        <tr>
+        {%endfor%}
+        <!-- {%for j in range(row_count)%}
+        <tr>
+            {%for key, value in dict_values.items()%}
+            <td>{{value}}</td>
+            {%endfor%}
+        </tr>
+        {%endfor%} -->
+    </table>
+</body>
+</html>

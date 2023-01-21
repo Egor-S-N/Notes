@@ -1,7 +1,7 @@
 from flask import Flask, escape, render_template, request, url_for
 from flask_restful import Api, Resource
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 api = Api()
 
 
@@ -10,18 +10,30 @@ values = {
     2 : {"info": "Test2", "number": 2},
 }
 
-class Main(Resource):
-    def get(self, id_value:int) -> dict:
-        if id_value == 0:
-            return values
+
+
+@app.route('/')
+def get_page():
+    return render_template('index.html', col = 3, col_names = list(values[1].keys()) , row_count = len(values), dict_values = values)
+# class Main(Resource):
+#     def get(self, id_value:int) -> dict:
+#         # if id_value == 0:
+#         #     return values
+#         # return values[id_value]
+#         return render_template('index.html')
+
+
+
         
-        return values[id_value]
+    
+
         
 
 
 
-api.add_resource(Main, '/main/<int:id_value>')
-api.init_app(app=app)
+# api.add_resource(Main, '/main/<int:id_value>')
+# api.add_resource(Main.get_page, "/")
+# api.init_app(app=app)
 # @app.route("/")
 # def index():
 #     return "<h1>Index</h1>"
